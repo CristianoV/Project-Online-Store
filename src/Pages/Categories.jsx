@@ -31,6 +31,7 @@ class Categories extends React.Component {
                 type="radio"
                 id={ cats.id }
                 data-testid="category"
+                name="category"
               />
               { cats.name }
             </label>
