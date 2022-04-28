@@ -69,6 +69,7 @@ class MainPage extends React.Component {
               title={ product.title }
               thumbnail={ product.thumbnail }
               price={ product.price }
+              id={ product.id }
             />
           ))}
 
