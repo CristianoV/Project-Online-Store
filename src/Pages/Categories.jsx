@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class Categories extends React.Component {
@@ -17,11 +18,6 @@ class Categories extends React.Component {
     const cats = await api.getCategories();
     this.setState({ categories: cats });
   }
-
-  /* handleClickCat = async (id) => {
-    const categoryList = await api.getProductsFromCategoryAndQuery(id, null);
-    console.log(categoryList.results);
-  } */
 
   render() {
     const { categories } = this.state;
@@ -50,3 +46,7 @@ class Categories extends React.Component {
 }
 
 export default Categories;
+
+Categories.propTypes = {
+  handleClickCat: PropTypes.shape.isRequired,
+};
