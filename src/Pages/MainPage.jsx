@@ -72,7 +72,6 @@ class MainPage extends React.Component {
               id={ product.id }
             />
           ))}
-
         </div>
 
       </div>

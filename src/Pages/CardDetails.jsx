@@ -36,7 +36,6 @@ class CardDetails extends React.Component {
             <p data-testid="product-detail-name">{product.title}</p>
             <img src={ product.thumbnail } alt={ product.title } />
             <p>{product.price}</p>
-
           </div>
 
         </>

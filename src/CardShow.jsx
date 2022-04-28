@@ -17,7 +17,6 @@ export default class CardShow extends React.Component {
             },
           } }
         >
-
           <p>{ title }</p>
           <img src={ thumbnail } alt={ title } />
           <p>{ price }</p>
