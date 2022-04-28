@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import * as api from '../services/api';
 
 class Categories extends React.Component {
@@ -20,6 +21,7 @@ class Categories extends React.Component {
 
   render() {
     const { categories } = this.state;
+    const { handleClickCat } = this.props;
     return (
       <div>
         { categories.map((cats) => (
@@ -32,6 +34,7 @@ class Categories extends React.Component {
                 id={ cats.id }
                 data-testid="category"
                 name="category"
+                onClick={ () => handleClickCat(cats.id) }
               />
               { cats.name }
             </label>
@@ -43,3 +46,7 @@ class Categories extends React.Component {
 }
 
 export default Categories;
+
+Categories.propTypes = {
+  handleClickCat: PropTypes.shape.isRequired,
+};
