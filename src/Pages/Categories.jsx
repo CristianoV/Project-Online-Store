@@ -18,8 +18,14 @@ class Categories extends React.Component {
     this.setState({ categories: cats });
   }
 
+  /* handleClickCat = async (id) => {
+    const categoryList = await api.getProductsFromCategoryAndQuery(id, null);
+    console.log(categoryList.results);
+  } */
+
   render() {
     const { categories } = this.state;
+    const { handleClickCat } = this.props;
     return (
       <div>
         { categories.map((cats) => (
@@ -32,6 +38,7 @@ class Categories extends React.Component {
                 id={ cats.id }
                 data-testid="category"
                 name="category"
+                onClick={ () => handleClickCat(cats.id) }
               />
               { cats.name }
             </label>

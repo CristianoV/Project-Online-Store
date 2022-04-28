@@ -25,6 +25,13 @@ class MainPage extends React.Component {
     });
   }
 
+  handleClickCat = async (id) => {
+    const categoryList = await api.getProductsFromCategoryAndQuery(id, null);
+    this.setState({
+      productsList: categoryList.results,
+    });
+  }
+
   render() {
     const { productSearch, productsList } = this.state;
     return (
@@ -52,7 +59,9 @@ class MainPage extends React.Component {
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.
         </p>
-        <Categories />
+        <Categories
+          handleClickCat={ this.handleClickCat }
+        />
         <div>
           { productsList.length !== 0 && productsList.map((product) => (
             <CardShow
