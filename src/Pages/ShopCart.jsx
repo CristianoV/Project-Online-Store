@@ -5,7 +5,7 @@ class ShopCart extends React.Component {
     super();
     this.state = {
       products: '',
-      quantity: 0,
+      quantity: '',
     };
   }
 
@@ -15,9 +15,11 @@ class ShopCart extends React.Component {
   }
 
   addToCart(item) {
-    console.log('10');
-    // const { products } = this.state;
-    // const product = products.find((items) => items.id === item);
+    // console.log('10');
+    const { products } = this.state;
+    // console.log(products);
+    const product = products.find((items) => items.id === item);
+    console.log(product);
     // console.log(product);
     this.setState((prevState) => ({
       quantity: prevState.products.find((items) => items.id === item).quantity++,
