@@ -2,33 +2,11 @@ import React from 'react';
 import * as api from '../services/api';
 
 class ShopCart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      results: [],
-    };
-  }
-
-  componentDidMount() {
-    this.listProducts();
-  }
-
-  listProducts = () => {
-    let listItems = localStorage.getItem('cartItems');
-    listItems = listItems.split(',');
-    const items = [];
-    listItems.map(async (id) => {
-      const item = await api.getProductDetail(id);
-      items.push(item);
-      this.setState({ results: items });
-    });
-  }
-
   render() {
-    const { results } = this.state;
+    const results = JSON.parse(localStorage.getItem('items'));
     return (
       <div>
-        {results.length !== 0
+        {results !== null
           ? (
             <div>
               {results.map((item) => (
@@ -42,7 +20,9 @@ class ShopCart extends React.Component {
                   <button type="button">
                     +
                   </button>
-                  <p data-testid="shopping-cart-product-quantity">1</p>
+                  <p data-testid="shopping-cart-product-quantity">
+                    {item.quantity}
+                  </p>
                   <button type="button">
                     -
                   </button>

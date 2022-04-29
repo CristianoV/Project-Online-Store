@@ -3,15 +3,8 @@ import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
 
 export default class CardShow extends React.Component {
-  handleClick = (id) => {
-    const productSelected = [localStorage.getItem('cartItems')];
-    productSelected.push(id);
-    localStorage.setItem('cartItems', productSelected);
-    console.log(id);
-  }
-
   render() {
-    const { title, thumbnail, price, id, information } = this.props;
+    const { title, thumbnail, price, id, information, putElementCart } = this.props;
     return (
       <div data-testid="product">
         <Link
@@ -30,7 +23,7 @@ export default class CardShow extends React.Component {
         </Link>
         <button
           type="submit"
-          onClick={ () => this.handleClick(id) }
+          onClick={ () => putElementCart(id) }
           data-testid="product-add-to-cart"
         >
           Adicionar ao carrinho

@@ -32,6 +32,34 @@ class MainPage extends React.Component {
     });
   }
 
+  /*   handleClickToCart = async (id) => {
+      if (localStorage.getItem('items') !== null) {
+        const item = await api.getProductDetail(id);
+        item.quantity = 1;
+        const addProductSelected = JSON.parse(localStorage.getItem('items'));
+        addProductSelected.push(item);
+        localStorage.setItem('items', JSON.stringify(addProductSelected));
+      } else {
+        const item = await api.getProductDetail(id);
+        item.quantity = 1;
+        const addProductSelected = [item];
+        localStorage.setItem('items', JSON.stringify(addProductSelected));
+      }
+    } */
+
+  handleClickToCart = (item) => {
+    if (localStorage.getItem('items') !== null) {
+      item.quantity = 1;
+      const addProductSelected = JSON.parse(localStorage.getItem('items'));
+      addProductSelected.push(item);
+      localStorage.setItem('items', JSON.stringify(addProductSelected));
+    } else {
+      item.quantity = 1;
+      const addProductSelected = [item];
+      localStorage.setItem('items', JSON.stringify(addProductSelected));
+    }
+  }
+
   render() {
     const { productSearch, productsList } = this.state;
     return (
@@ -70,6 +98,8 @@ class MainPage extends React.Component {
               thumbnail={ product.thumbnail }
               price={ product.price }
               id={ product.id }
+              /* putElementCart={ this.handleClickToCart } */
+              putElementCart={ () => this.handleClickToCart(product) }
             />
           ))}
         </div>
