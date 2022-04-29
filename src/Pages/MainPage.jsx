@@ -48,7 +48,7 @@ class MainPage extends React.Component {
     } */
 
   handleClickToCart = (item) => {
-    // console.log(item);
+    // console.log(item)
     if (localStorage.getItem('items') !== null) {
       item.quantity = 1;
       const addProductSelected = JSON.parse(localStorage.getItem('items'));

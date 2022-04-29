@@ -22,6 +22,7 @@ class CardDetails extends React.Component {
     }
 
     putCardDetails = (item) => {
+      // console.log(item);
       if (localStorage.getItem('items') !== null) {
         item.quantity = 1;
         const addProductSelected = JSON.parse(localStorage.getItem('items'));
