@@ -21,6 +21,19 @@ class CardDetails extends React.Component {
       this.setState({ product: detail });
     }
 
+    putCardDetails = (item) => {
+      if (localStorage.getItem('items') !== null) {
+        item.quantity = 1;
+        const addProductSelected = JSON.parse(localStorage.getItem('items'));
+        addProductSelected.push(item);
+        localStorage.setItem('items', JSON.stringify(addProductSelected));
+      } else {
+        item.quantity = 1;
+        const addProductSelected = [item];
+        localStorage.setItem('items', JSON.stringify(addProductSelected));
+      }
+    }
+
     render() {
       const { product } = this.state;
 
@@ -36,6 +49,13 @@ class CardDetails extends React.Component {
             <p data-testid="product-detail-name">{product.title}</p>
             <img src={ product.thumbnail } alt={ product.title } />
             <p>{product.price}</p>
+            <button
+              type="submit"
+              onClick={ () => this.putCardDetails(product) }
+              data-testid="product-detail-add-to-cart"
+            >
+              Adicionar ao carrinho
+            </button>
           </div>
 
         </>
