@@ -15,15 +15,27 @@ class ShopCart extends React.Component {
   }
 
   addToCart(item) {
-    // console.log('10');
     const { products } = this.state;
-    // console.log(products);
     const product = products.find((items) => items.id === item);
-    console.log(product);
-    // console.log(product);
-    this.setState((prevState) => ({
-      quantity: prevState.products.find((items) => items.id === item).quantity++,
-    }));
+    product.quantity += 1;
+    console.log(product.quantity);
+    this.setState({
+      quantity: product.quantity,
+    });
+    const { quantity } = this.state;
+    console.log(quantity);
+  }
+
+  removeToCart(item) {
+    const { products } = this.state;
+    const product = products.find((items) => items.id === item);
+    product.quantity -= 1;
+    console.log(product.quantity);
+    this.setState({
+      quantity: product.quantity,
+    });
+    const { quantity } = this.state;
+    console.log(quantity);
   }
 
   render() {
@@ -52,7 +64,9 @@ class ShopCart extends React.Component {
                     {item.quantity}
                   </p>
                   <button
+                    data-testid="product-decrease-quantity"
                     type="button"
+                    onClick={ () => this.removeToCart(item.id) }
                   >
                     -
                   </button>
