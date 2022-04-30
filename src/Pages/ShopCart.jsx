@@ -18,7 +18,7 @@ class ShopCart extends React.Component {
     const { products } = this.state;
     const product = products.find((items) => items.id === item);
     product.quantity += 1;
-    console.log(product.quantity);
+    // console.log(product.quantity);
     this.setState({
       quantity: product.quantity,
     });
@@ -30,7 +30,7 @@ class ShopCart extends React.Component {
     const { products } = this.state;
     const product = products.find((items) => items.id === item);
     product.quantity -= 1;
-    console.log(product.quantity);
+    // console.log(product.quantity);
     this.setState({
       quantity: product.quantity,
     });
