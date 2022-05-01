@@ -8,17 +8,27 @@ class CardDetails extends React.Component {
     super();
     this.state = {
       product: '',
+      email: '',
+      radio: '',
+      textarea: '',
+      comments: '',
     };
   }
 
   async componentDidMount() {
     await this.product();
+    this.comments();
   }
 
     product = async () => {
       const { match: { params: { id } } } = this.props;
       const detail = await api.getProductDetail(id);
       this.setState({ product: detail });
+    }
+
+    comments = () => {
+      const results = JSON.parse(localStorage.getItem('comments'));
+      this.setState({ comments: results });
     }
 
     putCardDetails = (item) => {
@@ -35,8 +45,30 @@ class CardDetails extends React.Component {
       }
     }
 
+    commentsSave = () => {
+      const { email, radio, textarea } = this.state;
+      const coment = { email,
+        radio,
+        textarea };
+      if (localStorage.getItem('comments') !== null) {
+        const addProductSelected = JSON.parse(localStorage.getItem('comments'));
+        console.log(addProductSelected);
+        addProductSelected.push(coment);
+        localStorage.setItem('comments', JSON.stringify(addProductSelected));
+      } else {
+        const addProductSelected = [coment];
+        localStorage.setItem('comments', JSON.stringify(addProductSelected));
+      }
+    }
+
+    handleChange =({ target }) => {
+      const { type, value, id } = target;
+      return type === 'radio' ? this.setState({ [type]: id })
+        : this.setState({ [type]: value });
+    }
+
     render() {
-      const { product } = this.state;
+      const { product, email, radio, textarea, comments } = this.state;
 
       return (
         <>
@@ -57,10 +89,94 @@ class CardDetails extends React.Component {
             >
               Adicionar ao carrinho
             </button>
+            <form>
+              <label htmlFor="emailInput">
+                Email
+                <input
+                  type="email"
+                  name=""
+                  required
+                  id="emailInput"
+                  data-testid="product-detail-email"
+                  value={ email }
+                  onChange={ this.handleChange }
+                />
+              </label>
+              <input
+                type="radio"
+                name="avaliacao"
+                id="1"
+                required
+                data-testid="1-rating"
+                onChange={ this.handleChange }
+                value={ radio }
+              />
+              <input
+                type="radio"
+                name="avaliacao"
+                id="2"
+                required
+                data-testid="2-rating"
+                onChange={ this.handleChange }
+                value={ radio }
+              />
+              <input
+                type="radio"
+                name="avaliacao"
+                id="3"
+                required
+                data-testid="3-rating"
+                onChange={ this.handleChange }
+                value={ radio }
+              />
+              <input
+                type="radio"
+                name="avaliacao"
+                id="4"
+                required
+                data-testid="4-rating"
+                onChange={ this.handleChange }
+                value={ radio }
+              />
+              <input
+                type="radio"
+                name="avaliacao"
+                id="5"
+                required
+                data-testid="5-rating"
+                onChange={ this.handleChange }
+                value={ radio }
+              />
+              <label htmlFor="comentario">
+                Avaliações
+                <textarea
+                  name=""
+                  id="comentario"
+                  cols="30"
+                  required
+                  rows="10"
+                  value={ textarea }
+                  data-testid="product-detail-evaluation"
+                  onChange={ this.handleChange }
+                />
+              </label>
+              <button
+                type="submit"
+                data-testid="submit-review-btn"
+                onClick={ () => this.commentsSave() }
+              >
+                Avaliar
+              </button>
+            </form>
+            {comments && comments.map((comment, index) => (
+              <div key={ index }>
+                <p>{comment.email}</p>
+                <p>{comment.radio}</p>
+                <p>{comment.textarea}</p>
+              </div>
+            ))}
           </div>
-
         </>
-
       );
     }
 }
