@@ -1,14 +1,48 @@
 import React from 'react';
 
 class ShopCart extends React.Component {
-  render() {
+  constructor() {
+    super();
+    this.state = {
+      products: '',
+    };
+  }
+
+  componentDidMount() {
     const results = JSON.parse(localStorage.getItem('items'));
+    this.setState({ products: results });
+  }
+
+  addToCart(item) {
+    const { products } = this.state;
+    this.setState({
+      products: products.map((element) => {
+        if (element.id === item) {
+          element.quantity += 1;
+        } return element;
+      }),
+    });
+  }
+
+  removeToCart(item) {
+    const { products } = this.state;
+    this.setState({
+      products: products.map((element) => {
+        if (element.id === item) {
+          element.quantity -= 1;
+        } return element;
+      }),
+    });
+  }
+
+  render() {
+    const { products } = this.state;
     return (
       <div>
-        {results !== null
+        {products
           ? (
             <div>
-              {results.map((item) => (
+              {products.map((item) => (
                 <div
                   key={ item.id }
                   data-testid="shopping-cart-product-name"
@@ -16,13 +50,21 @@ class ShopCart extends React.Component {
                   <p>{item.title}</p>
                   <img src={ item.thumbnail } alt={ item.title } />
                   <p>{ item.price }</p>
-                  <button type="button">
+                  <button
+                    data-testid="product-increase-quantity"
+                    type="button"
+                    onClick={ () => this.addToCart(item.id) }
+                  >
                     +
                   </button>
                   <p data-testid="shopping-cart-product-quantity">
                     {item.quantity}
                   </p>
-                  <button type="button">
+                  <button
+                    data-testid="product-decrease-quantity"
+                    type="button"
+                    onClick={ () => this.removeToCart(item.id) }
+                  >
                     -
                   </button>
                 </div>
