@@ -48,5 +48,5 @@ class Categories extends React.Component {
 export default Categories;
 
 Categories.propTypes = {
-  handleClickCat: PropTypes.shape.isRequired,
+  handleClickCat: PropTypes.func.isRequired,
 };

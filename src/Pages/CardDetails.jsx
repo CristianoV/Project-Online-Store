@@ -20,6 +20,12 @@ class CardDetails extends React.Component {
     this.comments();
   }
 
+  textClear = () => {
+    this.setState({ email: '',
+      radio: '',
+      textarea: '' });
+  }
+
     product = async () => {
       const { match: { params: { id } } } = this.props;
       const detail = await api.getProductDetail(id);
@@ -49,10 +55,11 @@ class CardDetails extends React.Component {
     }
 
     commentsSave = () => {
-      const { email, radio, textarea } = this.state;
+      const { email, radio, textarea, product } = this.state;
       const coment = { email,
         radio,
-        textarea };
+        textarea,
+        id: product.id };
       if (localStorage.getItem('comments') !== null) {
         const addProductSelected = JSON.parse(localStorage.getItem('comments'));
         console.log(addProductSelected);
@@ -62,6 +69,8 @@ class CardDetails extends React.Component {
         const addProductSelected = [coment];
         localStorage.setItem('comments', JSON.stringify(addProductSelected));
       }
+      this.comments();
+      this.textClear();
     }
 
     handleChange =({ target }) => {
@@ -164,20 +173,24 @@ class CardDetails extends React.Component {
                 />
               </label>
               <button
-                type="submit"
+                type="button"
                 data-testid="submit-review-btn"
                 onClick={ () => this.commentsSave() }
               >
                 Avaliar
               </button>
             </form>
-            {comments && comments.map((comment, index) => (
-              <div key={ index }>
-                <p>{comment.email}</p>
-                <p>{comment.radio}</p>
-                <p>{comment.textarea}</p>
-              </div>
-            ))}
+            {comments && comments.map((comment, index) => {
+              let coment;
+              if (comment.id === product.id) {
+                coment = (<div key={ index }>
+                  <p>{comment.email}</p>
+                  <p>{comment.radio}</p>
+                  <p>{comment.textarea}</p>
+                </div>
+                );
+              } return coment;
+            })}
           </div>
         </>
       );
