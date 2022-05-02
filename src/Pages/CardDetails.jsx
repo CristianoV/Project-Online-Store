@@ -183,11 +183,12 @@ class CardDetails extends React.Component {
             {comments && comments.map((comment, index) => {
               let coment;
               if (comment.id === product.id) {
-                coment = (<div key={ index }>
-                  <p>{comment.email}</p>
-                  <p>{comment.radio}</p>
-                  <p>{comment.textarea}</p>
-                </div>
+                coment = (
+                  <div key={ index }>
+                    <p>{comment.email}</p>
+                    <p>{comment.radio}</p>
+                    <p>{comment.textarea}</p>
+                  </div>
                 );
               } return coment;
             })}
