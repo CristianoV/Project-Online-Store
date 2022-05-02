@@ -5,7 +5,6 @@ class ShopCart extends React.Component {
     super();
     this.state = {
       products: '',
-      quantity: '',
     };
   }
 
@@ -16,26 +15,24 @@ class ShopCart extends React.Component {
 
   addToCart(item) {
     const { products } = this.state;
-    const product = products.find((items) => items.id === item);
-    product.quantity += 1;
-    // console.log(product.quantity);
     this.setState({
-      quantity: product.quantity,
+      products: products.map((element) => {
+        if (element.id === item) {
+          element.quantity += 1;
+        } return element;
+      }),
     });
-    const { quantity } = this.state;
-    console.log(quantity);
   }
 
   removeToCart(item) {
     const { products } = this.state;
-    const product = products.find((items) => items.id === item);
-    product.quantity -= 1;
-    // console.log(product.quantity);
     this.setState({
-      quantity: product.quantity,
+      products: products.map((element) => {
+        if (element.id === item) {
+          element.quantity -= 1;
+        } return element;
+      }),
     });
-    const { quantity } = this.state;
-    console.log(quantity);
   }
 
   render() {

@@ -32,17 +32,20 @@ class CardDetails extends React.Component {
     }
 
     putCardDetails = (item) => {
-      // console.log(item);
-      if (localStorage.getItem('items') !== null) {
-        item.quantity = 1;
-        const addProductSelected = JSON.parse(localStorage.getItem('items'));
-        addProductSelected.push(item);
-        localStorage.setItem('items', JSON.stringify(addProductSelected));
+      let addProductSelected = JSON.parse(localStorage.getItem('items')) || [];
+      const cartProduct = addProductSelected.find((product) => product.id === item.id);
+      if (cartProduct) {
+        addProductSelected = addProductSelected.map((element) => {
+          if (element.id === item.id) {
+            element.quantity += 1;
+            return element;
+          } return element;
+        });
       } else {
         item.quantity = 1;
-        const addProductSelected = [item];
-        localStorage.setItem('items', JSON.stringify(addProductSelected));
+        addProductSelected.push(item);
       }
+      localStorage.setItem('items', JSON.stringify(addProductSelected));
     }
 
     commentsSave = () => {
