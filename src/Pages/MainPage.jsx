@@ -102,6 +102,7 @@ class MainPage extends React.Component {
               thumbnail={ product.thumbnail }
               price={ product.price }
               id={ product.id }
+              frete={ product.shipping.free_shipping }
               /* putElementCart={ this.handleClickToCart } */
               putElementCart={ () => this.handleClickToCart(product) }
             />
