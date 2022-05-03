@@ -81,6 +81,8 @@ class CardDetails extends React.Component {
 
     render() {
       const { product, email, radio, textarea, comments } = this.state;
+      const { shipping } = product;
+      // const { free_shipping: freeShipping } = shipping;
 
       return (
         <>
@@ -89,6 +91,7 @@ class CardDetails extends React.Component {
               {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
               carrinho
             </Link>
+            {console.log(shipping)}
           </div>
           <div>
             <p data-testid="product-detail-name">{product.title}</p>
