@@ -4,7 +4,8 @@ import { Link } from 'react-router-dom';
 
 export default class CardShow extends React.Component {
   render() {
-    const { title, thumbnail, price, id, information, putElementCart } = this.props;
+    const { title, thumbnail, price, id,
+      information, putElementCart, frete } = this.props;
     return (
       <div data-testid="product">
         <Link
@@ -21,6 +22,8 @@ export default class CardShow extends React.Component {
           <img src={ thumbnail } alt={ title } />
           <p>{ price }</p>
         </Link>
+        {frete
+            && <p data-testid="free-shipping">FRETE GRATIS</p>}
         <button
           type="submit"
           onClick={ () => putElementCart(id) }

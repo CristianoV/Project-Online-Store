@@ -94,6 +94,8 @@ class CardDetails extends React.Component {
             <p data-testid="product-detail-name">{product.title}</p>
             <img src={ product.thumbnail } alt={ product.title } />
             <p>{product.price}</p>
+            {product.shipping?.free_shipping
+            && <p data-testid="free-shipping">FRETE GRATIS</p>}
             <button
               type="submit"
               onClick={ () => this.putCardDetails(product) }

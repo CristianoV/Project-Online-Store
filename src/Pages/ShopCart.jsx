@@ -1,23 +1,31 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ShopCart extends React.Component {
   constructor() {
     super();
     this.state = {
-      products: '',
+      products: [],
     };
   }
 
   componentDidMount() {
     const results = JSON.parse(localStorage.getItem('items'));
-    this.setState({ products: results });
+    if (results !== null) {
+      this.setState({ products: results });
+    }
+  }
+
+  redirectCheckout = () => {
+    const { history } = this.props;
+    history.push('/finishCart');
   }
 
   addToCart(item) {
     const { products } = this.state;
     this.setState({
       products: products.map((element) => {
-        if (element.id === item) {
+        if (element.id === item && element.quantity !== element.available_quantity) {
           element.quantity += 1;
         } return element;
       }),
@@ -30,16 +38,29 @@ class ShopCart extends React.Component {
       products: products.map((element) => {
         if (element.id === item) {
           element.quantity -= 1;
+          if (element.quantity === 0) {
+            this.setState({
+              products: products.filter((acc) => acc.quantity !== 0) });
+          }
         } return element;
       }),
     });
+    this.setState({
+      products: products.filter((element) => element.quantity !== 0) });
   }
 
   render() {
     const { products } = this.state;
     return (
       <div>
-        {products
+        <button
+          data-testid="checkout-products"
+          type="button"
+          onClick={ this.redirectCheckout }
+        >
+          Finalizar Carrinho
+        </button>
+        {products.length !== 0
           ? (
             <div>
               {products.map((item) => (
@@ -75,5 +96,11 @@ class ShopCart extends React.Component {
     );
   }
 }
+
+ShopCart.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default ShopCart;
