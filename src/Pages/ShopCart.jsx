@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 class ShopCart extends React.Component {
   constructor() {
@@ -13,6 +14,11 @@ class ShopCart extends React.Component {
     if (results !== null) {
       this.setState({ products: results });
     }
+  }
+
+  redirectCheckout = () => {
+    const { history } = this.props;
+    history.push('/finishCart');
   }
 
   addToCart(item) {
@@ -47,6 +53,13 @@ class ShopCart extends React.Component {
     const { products } = this.state;
     return (
       <div>
+        <button
+          data-testid="checkout-products"
+          type="button"
+          onClick={ this.redirectCheckout }
+        >
+          Finalizar Carrinho
+        </button>
         {products.length !== 0
           ? (
             <div>
@@ -83,5 +96,11 @@ class ShopCart extends React.Component {
     );
   }
 }
+
+ShopCart.propTypes = {
+  history: PropTypes.shape({
+    push: PropTypes.func,
+  }),
+}.isRequired;
 
 export default ShopCart;

@@ -3,6 +3,7 @@ import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import ShopCart from './Pages/ShopCart';
 import CardDetails from './Pages/CardDetails';
+import FinishCart from './Pages/FinishCart';
 
 class App extends React.Component {
   render() {
@@ -13,6 +14,7 @@ class App extends React.Component {
             <Route exact path="/" component={ MainPage } />
             <Route path="/shopcart" component={ ShopCart } />
             <Route path="/product/:id" component={ CardDetails } />
+            <Route path="/finishCart" component={ FinishCart } />
           </Switch>
         </BrowserRouter>
       </div>
