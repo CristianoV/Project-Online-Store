@@ -26,7 +26,7 @@ export default class FinishCart extends React.Component {
   }
 
       renderFinalPrice = (products) => {
-        const prices = products.map((acc) => acc.price);
+        const prices = products.map((acc) => acc.price * acc.quantity);
         const teste = prices.reduce((acc, elemento) => acc + elemento);
         this.setState({
           totalPrice: teste || 0.00,
@@ -84,6 +84,10 @@ export default class FinishCart extends React.Component {
                     Preço: R$
                     { product.price }
                   </h4>
+                  <p>
+                    Quantidade:
+                    {product.quantity}
+                  </p>
                 </div>
               ))}
             </div>

@@ -10,7 +10,12 @@ class MainPage extends React.Component {
     this.state = {
       productSearch: '',
       productsList: [],
+      quantidade: 0,
     };
+  }
+
+  componentDidMount() {
+    this.cartDetails();
   }
 
   handleChange =({ target }) => {
@@ -32,20 +37,14 @@ class MainPage extends React.Component {
     });
   }
 
-  /*   handleClickToCart = async (id) => {
-      if (localStorage.getItem('items') !== null) {
-        const item = await api.getProductDetail(id);
-        item.quantity = 1;
-        const addProductSelected = JSON.parse(localStorage.getItem('items'));
-        addProductSelected.push(item);
-        localStorage.setItem('items', JSON.stringify(addProductSelected));
-      } else {
-        const item = await api.getProductDetail(id);
-        item.quantity = 1;
-        const addProductSelected = [item];
-        localStorage.setItem('items', JSON.stringify(addProductSelected));
-      }
-    } */
+  cartDetails = () => {
+    const results = JSON.parse(localStorage.getItem('items'));
+    if (results) {
+      const quantity = results.map((acc) => acc.quantity);
+      const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
+      this.setState({ quantidade: quantityTotal });
+    }
+  }
 
   handleClickToCart = (item) => {
     let addProductSelected = JSON.parse(localStorage.getItem('items')) || [];
@@ -62,10 +61,11 @@ class MainPage extends React.Component {
       addProductSelected.push(item);
     }
     localStorage.setItem('items', JSON.stringify(addProductSelected));
+    this.cartDetails();
   }
 
   render() {
-    const { productSearch, productsList } = this.state;
+    const { productSearch, productsList, quantidade } = this.state;
     return (
       <div>
         <label htmlFor="mainpage">
@@ -86,7 +86,9 @@ class MainPage extends React.Component {
 
         <Link data-testid="shopping-cart-button" to="/shopcart">
           {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
-          carrinho
+          <p data-testid="shopping-cart-size">
+            {quantidade}
+          </p>
         </Link>
         <p data-testid="home-initial-message">
           Digite algum termo de pesquisa ou escolha uma categoria.

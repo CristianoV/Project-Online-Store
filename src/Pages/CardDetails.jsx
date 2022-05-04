@@ -12,18 +12,32 @@ class CardDetails extends React.Component {
       radio: '',
       textarea: '',
       comments: '',
+      quantidade: this.cartDetails(),
+      // quantidade: 0,
     };
   }
 
   async componentDidMount() {
     await this.product();
     this.comments();
+    // this.cartDetails();
   }
 
   textClear = () => {
     this.setState({ email: '',
       radio: '',
       textarea: '' });
+  }
+
+  cartDetails = () => {
+    const results = JSON.parse(localStorage.getItem('items'));
+    if (results) {
+      const quantity = results.map((acc) => acc.quantity);
+      const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
+      // this.setState({ quantidade: quantityTotal });
+      return quantityTotal;
+    }
+    return 0;
   }
 
     product = async () => {
@@ -52,6 +66,7 @@ class CardDetails extends React.Component {
         addProductSelected.push(item);
       }
       localStorage.setItem('items', JSON.stringify(addProductSelected));
+      this.cartDetails();
     }
 
     commentsSave = () => {
@@ -80,14 +95,16 @@ class CardDetails extends React.Component {
     }
 
     render() {
-      const { product, email, radio, textarea, comments } = this.state;
+      const { product, email, radio, textarea, comments, quantidade } = this.state;
 
       return (
         <>
           <div>
             <Link data-testid="shopping-cart-button" to="/shopcart">
               {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
-              carrinho
+              <p data-testid="shopping-cart-size">
+                {quantidade}
+              </p>
             </Link>
           </div>
           <div>
