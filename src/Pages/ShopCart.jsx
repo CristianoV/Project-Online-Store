@@ -30,6 +30,7 @@ class ShopCart extends React.Component {
         } return element;
       }),
     });
+    localStorage.setItem('items', JSON.stringify(products));
   }
 
   removeToCart(item) {
@@ -47,6 +48,7 @@ class ShopCart extends React.Component {
     });
     this.setState({
       products: products.filter((element) => element.quantity !== 0) });
+    localStorage.setItem('items', JSON.stringify(products));
   }
 
   render() {
