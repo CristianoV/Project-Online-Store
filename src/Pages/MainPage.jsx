@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import Categories from './Categories';
 import * as api from '../services/api';
 import CardShow from '../CardShow';
+// import Header from '../componentes/Header';
+import style from './MainPage.module.css';
 
 class MainPage extends React.Component {
   constructor() {
@@ -66,9 +68,11 @@ class MainPage extends React.Component {
 
   render() {
     const { productSearch, productsList, quantidade } = this.state;
+    // const { children } = this.props;
     return (
-      <div>
-        <label htmlFor="mainpage">
+      <div className={ style.container }>
+        {/* <div>{ children }</div> */}
+        <header>
           <input
             data-testid="query-input"
             type="text"
@@ -76,40 +80,45 @@ class MainPage extends React.Component {
             value={ productSearch }
             onChange={ this.handleChange }
           />
-        </label>
-        <input
-          type="button"
-          data-testid="query-button"
-          value="pesquisar"
-          onClick={ () => this.handleClick(productSearch) }
-        />
-
-        <Link data-testid="shopping-cart-button" to="/shopcart">
-          {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
-          <p data-testid="shopping-cart-size">
-            {quantidade}
+          <input
+            type="button"
+            data-testid="query-button"
+            value="pesquisar"
+            onClick={ () => this.handleClick(productSearch) }
+          />
+          <Link data-testid="shopping-cart-button" to="/shopcart">
+            <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" />
+            <p data-testid="shopping-cart-size">
+              {quantidade}
+            </p>
+          </Link>
+        </header>
+        {!productsList.length
+        && (
+          <p data-testid="home-initial-message" className={ style.containerSpace }>
+            Digite algum termo de pesquisa ou escolha uma categoria.
           </p>
-        </Link>
-        <p data-testid="home-initial-message">
-          Digite algum termo de pesquisa ou escolha uma categoria.
-        </p>
-        <Categories
-          handleClickCat={ this.handleClickCat }
-        />
-        <div>
-          { productsList.length !== 0 && productsList.map((product) => (
-            <CardShow
-              key={ product.title }
-              title={ product.title }
-              thumbnail={ product.thumbnail }
-              price={ product.price }
-              id={ product.id }
-              frete={ product.shipping.free_shipping }
-              /* putElementCart={ this.handleClickToCart } */
-              putElementCart={ () => this.handleClickToCart(product) }
-            />
-          ))}
-        </div>
+        )}
+
+        <nav>
+          <div>
+            <Categories handleClickCat={ this.handleClickCat } />
+          </div>
+          <section>
+            { productsList.length !== 0 && productsList.map((product) => (
+              <CardShow
+                key={ product.title }
+                title={ product.title }
+                thumbnail={ product.thumbnail }
+                price={ product.price }
+                id={ product.id }
+                frete={ product.shipping.free_shipping }
+                /* putElementCart={ this.handleClickToCart } */
+                putElementCart={ () => this.handleClickToCart(product) }
+              />
+            ))}
+          </section>
+        </nav>
       </div>
     );
   }

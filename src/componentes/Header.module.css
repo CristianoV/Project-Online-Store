@@ -1,0 +1,19 @@
+.container {
+  background-color: #232323;
+  box-shadow: 1px 1px 5px 2px #232323;
+  color: #fffffe;
+  height: 18vh;
+}
+
+.container img {
+  height: 40px;
+  width: 40px;
+}
+
+.container a {
+  align-items: center;
+  color: #fffffe;
+  display: flex;
+  justify-content: space-around;
+  justify-items: center;
+}

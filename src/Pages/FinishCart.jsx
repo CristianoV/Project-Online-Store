@@ -136,21 +136,46 @@ export default class FinishCart extends React.Component {
             <div className="payment">
               <h2>Método de pagamento</h2>
               <div>
-                <label htmlFor="paymentMethod" onChange={ this.handleChange }>
+                <label htmlFor="paymentMethod">
                   Boleto
                   <input
                     type="radio"
                     id="paymentMethod"
                     value="boleto"
                     name="pay"
-                    required
+                    onChange={ this.handleChange }
+                  />
+                </label>
+                <p>Cartão de Crédito</p>
+                <label htmlFor="paymentMethod" onChange={ this.handleChange }>
+                  Visa
+                  <input
+                    type="radio"
+                    id="paymentMethod"
+                    value="visa"
+                    name="pay"
+                    onChange={ this.handleChange }
                   />
                 </label>
                 <label htmlFor="paymentMethod" onChange={ this.handleChange }>
-                  Cartão de Crédito
-                  <input type="radio" id="paymentMethod" value="visa" name="pay" />
-                  <input type="radio" id="paymentMethod" value="mastercard" name="pay" />
-                  <input type="radio" id="paymentMethod" value="elo" name="pay" />
+                  Mastercard
+                  <input
+                    type="radio"
+                    id="paymentMethod"
+                    value="mastercard"
+                    name="pay"
+                    onChange={ this.handleChange }
+                  />
+                </label>
+                <label htmlFor="paymentMethod">
+                  Elo
+                  <input
+                    type="radio"
+                    id="paymentMethod"
+                    value="elo"
+                    name="pay"
+                    onChange={ this.handleChange }
+                  />
                 </label>
               </div>
               <button type="button" onClick={ this.validateInfos }>Comprar</button>

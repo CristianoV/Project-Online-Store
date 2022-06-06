@@ -1,0 +1,34 @@
+.container nav {
+  display: flex;
+}
+
+.container section {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  width: 75%;
+}
+
+.container header {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 10px;
+}
+
+.containerSpace {
+  display: flex;
+  height: 5vh;
+  justify-content: center;
+}
+
+.container a {
+  align-items: center;
+  display: flex;
+  justify-content: right;
+}
+
+.container header a img {
+  height: 32px;
+  width: 32px;
+}

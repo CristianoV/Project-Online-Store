@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import { Link } from 'react-router-dom';
+import style from './CardShow.module.css';
 
 export default class CardShow extends React.Component {
   render() {
     const { title, thumbnail, price, id,
       information, putElementCart, frete } = this.props;
     return (
-      <div data-testid="product">
+      <article data-testid="product" className={ style.container }>
         <Link
           key={ id }
           data-testid="product-detail-link"
@@ -20,7 +21,10 @@ export default class CardShow extends React.Component {
         >
           <p>{ title }</p>
           <img src={ thumbnail } alt={ title } />
-          <p>{ price }</p>
+          <p>
+            R$
+            { price.toFixed(2) }
+          </p>
         </Link>
         {frete
             && <p data-testid="free-shipping">FRETE GRATIS</p>}
@@ -31,7 +35,7 @@ export default class CardShow extends React.Component {
         >
           Adicionar ao carrinho
         </button>
-      </div>
+      </article>
 
     );
   }

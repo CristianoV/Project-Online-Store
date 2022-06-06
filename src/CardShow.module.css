@@ -1,0 +1,23 @@
+.container img {
+  height: 100px;
+}
+
+.container {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  height: 3%;
+  margin: 10px;
+  width: 30%;
+}
+
+.container a {
+  align-items: center;
+  color: #222525;
+  display: flex;
+  flex-direction: column;
+}
+
+.container p {
+  margin: 5px;
+}

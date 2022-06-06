@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import style from './Categories.module.css';
 
 class Categories extends React.Component {
   constructor() {
@@ -23,7 +24,7 @@ class Categories extends React.Component {
     const { categories } = this.state;
     const { handleClickCat } = this.props;
     return (
-      <div>
+      <div className={ style.container }>
         { categories.map((cats) => (
           <div key={ cats.id }>
             <label
