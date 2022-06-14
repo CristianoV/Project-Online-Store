@@ -77,12 +77,15 @@ class MainPage extends React.Component {
             data-testid="query-input"
             type="text"
             id="mainpage"
+            placeholder="Buscar produtos"
+            className="form-control"
             value={ productSearch }
             onChange={ this.handleChange }
           />
           <input
             type="button"
             data-testid="query-button"
+            className="btn btn-primary"
             value="pesquisar"
             onClick={ () => this.handleClick(productSearch) }
           />

@@ -8,7 +8,7 @@ export default class CardShow extends React.Component {
     const { title, thumbnail, price, id,
       information, putElementCart, frete } = this.props;
     return (
-      <article data-testid="product" className={ style.container }>
+      <article data-testid="product" className={ `card ${style.container}` }>
         <Link
           key={ id }
           data-testid="product-detail-link"
@@ -19,17 +19,20 @@ export default class CardShow extends React.Component {
             },
           } }
         >
-          <p>{ title }</p>
-          <img src={ thumbnail } alt={ title } />
-          <p>
-            R$
-            { price.toFixed(2) }
-          </p>
+          <img src={ thumbnail } className="card-img-top" alt={ title } />
+          <div className="card-body">
+            <h5 className="card-title">{ title }</h5>
+            <p className="card-text">
+              R$
+              { price.toFixed(2) }
+            </p>
+            {frete
+            && <p data-testid="free-shipping" className="card-text">FRETE GRATIS</p>}
+          </div>
         </Link>
-        {frete
-            && <p data-testid="free-shipping">FRETE GRATIS</p>}
         <button
           type="submit"
+          className="btn btn-primary"
           onClick={ () => putElementCart(id) }
           data-testid="product-add-to-cart"
         >

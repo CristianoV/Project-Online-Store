@@ -1,23 +1,23 @@
+.container {
+  align-self: flex-end;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 10px;
+  width: 18rem;
+}
+
 .container img {
   height: 100px;
 }
 
-.container {
+/* .card-body {
   align-items: center;
   display: flex;
   flex-direction: column;
-  height: 3%;
+  height: 100%;
+  justify-content: center;
   margin: 10px;
-  width: 30%;
-}
-
-.container a {
-  align-items: center;
-  color: #222525;
-  display: flex;
-  flex-direction: column;
-}
-
-.container p {
-  margin: 5px;
-}
+  width: 100%;
+  background-color: red;
+} */
