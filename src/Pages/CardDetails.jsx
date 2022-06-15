@@ -1,7 +1,10 @@
+/* eslint-disable react/jsx-max-depth */
 import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 import * as api from '../services/api';
+import './CardDetails.css';
+import InputComment from '../componentes/InputComment';
 
 class CardDetails extends React.Component {
   constructor() {
@@ -12,15 +15,14 @@ class CardDetails extends React.Component {
       radio: '',
       textarea: '',
       comments: '',
-      quantidade: this.cartDetails(),
-      // quantidade: 0,
+      quantidade: 0,
     };
   }
 
   async componentDidMount() {
     await this.product();
     this.comments();
-    // this.cartDetails();
+    this.cartDetails();
   }
 
   textClear = () => {
@@ -34,10 +36,8 @@ class CardDetails extends React.Component {
     if (results) {
       const quantity = results.map((acc) => acc.quantity);
       const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
-      // this.setState({ quantidade: quantityTotal });
-      return quantityTotal;
+      this.setState({ quantidade: quantityTotal });
     }
-    return 0;
   }
 
     product = async () => {
@@ -96,123 +96,150 @@ class CardDetails extends React.Component {
 
     render() {
       const { product, email, radio, textarea, comments, quantidade } = this.state;
+      const { price } = product;
+      const { pictures, attributes } = product;
+      console.log(attributes);
 
       return (
-        <>
+        <div className="CardDetail-container">
           <div>
             <Link data-testid="shopping-cart-button" to="/shopcart">
               {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
               <p data-testid="shopping-cart-size">
-                {quantidade}
+                <i className="bi bi-cart">
+                  {quantidade}
+                </i>
               </p>
             </Link>
           </div>
-          <div>
+          <div className="slides-container">
             <p data-testid="product-detail-name">{product.title}</p>
-            <img src={ product.thumbnail } alt={ product.title } />
-            <p>{product.price}</p>
+            { pictures
+              ? (
+                <div
+                  id="carouselExampleControls"
+                  className="carousel slide"
+                  data-bs-ride="carousel"
+                >
+                  <div className="carousel-inner">
+                    { pictures.map((picture, index) => (
+                      <div
+                        key={ index }
+                        className={ `carousel-item ${index === 0 ? 'active' : ''}` }
+                      >
+                        <img
+                          src={ picture.secure_url }
+                          className="d-block w-100"
+                          alt="..."
+                        />
+                      </div>
+                    ))}
+                  </div>
+                  <button
+                    className="carousel-control-prev"
+                    type="button"
+                    data-bs-target="#carouselExampleControls"
+                    data-bs-slide="prev"
+                  >
+                    <span className="carousel-control-prev-icon" aria-hidden="true" />
+                    <span className="visually-hidden">Previous</span>
+                  </button>
+                  <button
+                    className="carousel-control-next"
+                    type="button"
+                    data-bs-target="#carouselExampleControls"
+                    data-bs-slide="next"
+                  >
+                    <span className="carousel-control-next-icon" aria-hidden="true" />
+                    <span className="visually-hidden">Next</span>
+                  </button>
+                </div>)
+              : (
+                <div className="spinner-border text-secondary" role="status">
+                  <span className="visually-hidden">Loading...</span>
+                </div>)}
+            <p>
+              R$:
+              { price && price.toFixed(2)}
+            </p>
             {product.shipping?.free_shipping
             && <p data-testid="free-shipping">FRETE GRATIS</p>}
             <button
               type="submit"
               onClick={ () => this.putCardDetails(product) }
               data-testid="product-detail-add-to-cart"
+              className="btn btn-primary"
             >
               Adicionar ao carrinho
             </button>
-            <form>
-              <label htmlFor="emailInput">
-                Email
-                <input
-                  type="email"
-                  name=""
-                  required
-                  id="emailInput"
-                  data-testid="product-detail-email"
-                  value={ email }
-                  onChange={ this.handleChange }
-                />
-              </label>
-              <input
-                type="radio"
-                name="avaliacao"
-                id="1"
-                required
-                data-testid="1-rating"
-                onChange={ this.handleChange }
-                value={ radio }
-              />
-              <input
-                type="radio"
-                name="avaliacao"
-                id="2"
-                required
-                data-testid="2-rating"
-                onChange={ this.handleChange }
-                value={ radio }
-              />
-              <input
-                type="radio"
-                name="avaliacao"
-                id="3"
-                required
-                data-testid="3-rating"
-                onChange={ this.handleChange }
-                value={ radio }
-              />
-              <input
-                type="radio"
-                name="avaliacao"
-                id="4"
-                required
-                data-testid="4-rating"
-                onChange={ this.handleChange }
-                value={ radio }
-              />
-              <input
-                type="radio"
-                name="avaliacao"
-                id="5"
-                required
-                data-testid="5-rating"
-                onChange={ this.handleChange }
-                value={ radio }
-              />
-              <label htmlFor="comentario">
-                Avaliações
-                <textarea
-                  name=""
-                  id="comentario"
-                  cols="30"
-                  required
-                  rows="10"
-                  value={ textarea }
-                  data-testid="product-detail-evaluation"
-                  onChange={ this.handleChange }
-                />
-              </label>
-              <button
-                type="button"
-                data-testid="submit-review-btn"
-                onClick={ () => this.commentsSave() }
-              >
-                Avaliar
-              </button>
-            </form>
-            {comments && comments.map((comment, index) => {
-              let coment;
-              if (comment.id === product.id) {
-                coment = (
-                  <div key={ index }>
-                    <p>{comment.email}</p>
-                    <p>{comment.radio}</p>
-                    <p>{comment.textarea}</p>
-                  </div>
-                );
-              } return coment;
-            })}
+            <div className="specs">
+              <div className="attributes-container">
+                <p>Atributos:</p>
+                {attributes
+            && attributes.map((attribute, index) => (
+              <div key={ index }>
+                <p>
+                  {attribute.name}
+                  :
+                  {attribute.value_name}
+                </p>
+              </div>
+            ))}
+              </div>
+              <form>
+                <label htmlFor="emailInput">
+                  Email
+                  <input
+                    type="email"
+                    name=""
+                    required
+                    id="emailInput"
+                    className="form-control"
+                    data-testid="product-detail-email"
+                    value={ email }
+                    onChange={ this.handleChange }
+                  />
+                </label>
+                <InputComment radio={ radio } handleChange={ this.handleChange } />
+                <div>
+                  <label htmlFor="comentario">
+                    Avaliações
+                    <textarea
+                      name=""
+                      id="comentario"
+                      className="form-control"
+                      cols="30"
+                      required
+                      rows="10"
+                      value={ textarea }
+                      data-testid="product-detail-evaluation"
+                      onChange={ this.handleChange }
+                    />
+                  </label>
+                </div>
+                <button
+                  type="button"
+                  data-testid="submit-review-btn"
+                  onClick={ () => this.commentsSave() }
+                >
+                  Avaliar
+                </button>
+                {comments && comments.map((comment, index) => {
+                  let coment;
+                  if (comment.id === product.id) {
+                    coment = (
+                      <div key={ index }>
+                        <p>{comment.email}</p>
+                        <p>{comment.radio}</p>
+                        <p>{comment.textarea}</p>
+                      </div>
+                    );
+                  } return coment;
+                })}
+              </form>
+            </div>
           </div>
-        </>
+        </div>
       );
     }
 }

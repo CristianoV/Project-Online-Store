@@ -1,17 +1,19 @@
 import React from 'react';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { HashRouter, Route, Switch } from 'react-router-dom';
 import MainPage from './Pages/MainPage';
 import ShopCart from './Pages/ShopCart';
 import CardDetails from './Pages/CardDetails';
 import FinishCart from './Pages/FinishCart';
 import Header from './componentes/Header';
+import Nav from './componentes/Nav';
 
 class App extends React.Component {
   render() {
     return (
       <div>
-        <BrowserRouter>
+        <HashRouter>
           <Header />
+          <Nav />
           <Switch>
             <Route exact path="/" component={ MainPage } />
             {/* <Route
@@ -27,7 +29,7 @@ class App extends React.Component {
             <Route path="/product/:id" component={ CardDetails } />
             <Route path="/finishCart" component={ FinishCart } />
           </Switch>
-        </BrowserRouter>
+        </HashRouter>
       </div>
     );
   }

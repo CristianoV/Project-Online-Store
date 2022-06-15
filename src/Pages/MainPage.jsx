@@ -90,9 +90,10 @@ class MainPage extends React.Component {
             onClick={ () => this.handleClick(productSearch) }
           />
           <Link data-testid="shopping-cart-button" to="/shopcart">
-            <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" />
             <p data-testid="shopping-cart-size">
-              {quantidade}
+              <i className="bi bi-cart">
+                {quantidade}
+              </i>
             </p>
           </Link>
         </header>

@@ -11,6 +11,13 @@
   height: 100px;
 }
 
+h5 {
+  max-width: 15ch;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
 /* .card-body {
   align-items: center;
   display: flex;
