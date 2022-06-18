@@ -1,6 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import CheckoutForm from './CheckoutForm';
+import './FinishCart.css';
 
 export default class FinishCart extends React.Component {
   constructor() {
@@ -27,16 +28,25 @@ export default class FinishCart extends React.Component {
 
       renderFinalPrice = (products) => {
         const prices = products.map((acc) => acc.price * acc.quantity);
-        const teste = prices.reduce((acc, elemento) => acc + elemento);
-        this.setState({
-          totalPrice: teste || 0.00,
-        });
+        if (prices.length > 0) {
+          const totalPrice = prices.reduce((acc, elemento) => acc + elemento);
+          this.setState({ totalPrice: totalPrice.toFixed(2) });
+        } else {
+          this.setState({ totalPrice: 0.00 });
+        }
       }
 
       handleChange = ({ target }) => {
         const { id, value } = target;
         this.setState({
           [id]: value,
+        });
+      }
+
+      handleChangeInput = ({ target }) => {
+        const { value } = target;
+        this.setState({
+          paymentMethod: value,
         });
       }
 
@@ -69,33 +79,10 @@ export default class FinishCart extends React.Component {
       }
 
       render() {
-        // const { totalProducts } = this.props;
-        const { totalPrice, totalProducts } = this.state;
+        const { totalPrice } = this.state;
         return (
-          <div>
-            <h1>Seus produtos:</h1>
-            <div className="products">
-              {totalProducts
-              && totalProducts.map((product) => (
-                <div key={ product.id }>
-                  <img src={ product.thumbnail } alt={ product.title } />
-                  <h3>{product.title}</h3>
-                  <h4>
-                    Preço: R$
-                    { product.price }
-                  </h4>
-                  <p>
-                    Quantidade:
-                    {product.quantity}
-                  </p>
-                </div>
-              ))}
-            </div>
-            <h2>
-              Preço total:
-              { totalPrice.toFixed(2) }
-            </h2>
-            <form>
+          <div className="container-finish">
+            <form className="mb-3 form-finish">
               <CheckoutForm
                 testId="checkout-fullname"
                 placeholder="Nome Completo"
@@ -133,52 +120,98 @@ export default class FinishCart extends React.Component {
                 onChange={ this.handleChange }
               />
             </form>
+            <div className="price-finishcart">
+              <h2>Parcelamento</h2>
+              <label htmlFor="price">
+                R$:
+                {totalPrice}
+                <select name="" className="form-select" id="price">
+                  <option value="1">
+                    1 x
+                    {' '}
+                    R$:
+                    {totalPrice}
+                  </option>
+                  <option value="2">
+                    2 x
+                    {' '}
+                    R$:
+                    {(totalPrice / 2).toFixed(2)}
+                  </option>
+                  <option value="3">
+                    3 x
+                    {' '}
+                    R$:
+                    {(totalPrice / 3).toFixed(2)}
+                  </option>
+                  <option value="4">
+                    4 x
+                    {' '}
+                    R$:
+                    {(totalPrice / 4).toFixed(2)}
+                  </option>
+                  <option value="5">
+                    5 x
+                    {' '}
+                    R$:
+                    {(totalPrice / 5).toFixed(2)}
+                  </option>
+                </select>
+              </label>
+            </div>
             <div className="payment">
               <h2>Método de pagamento</h2>
-              <div>
-                <label htmlFor="paymentMethod">
-                  Boleto
+              <div className="input-finish">
+                <label htmlFor="boleto">
                   <input
                     type="radio"
-                    id="paymentMethod"
+                    id="boleto"
                     value="boleto"
                     name="pay"
-                    onChange={ this.handleChange }
+                    onChange={ this.handleChangeInput }
                   />
+                  Boleto
                 </label>
-                <p>Cartão de Crédito</p>
-                <label htmlFor="paymentMethod" onChange={ this.handleChange }>
-                  Visa
+                <h2>Cartão de Crédito</h2>
+                <label htmlFor="visa" onChange={ this.handleChangeInput }>
                   <input
                     type="radio"
-                    id="paymentMethod"
+                    id="visa"
                     value="visa"
                     name="pay"
-                    onChange={ this.handleChange }
+                    onChange={ this.handleChangeInput }
                   />
+                  Visa
                 </label>
-                <label htmlFor="paymentMethod" onChange={ this.handleChange }>
-                  Mastercard
+                <label htmlFor="mastercard" onChange={ this.handleChangeInput }>
                   <input
                     type="radio"
-                    id="paymentMethod"
+                    id="mastercard"
                     value="mastercard"
                     name="pay"
-                    onChange={ this.handleChange }
+                    onChange={ this.handleChangeInput }
                   />
+                  Mastercard
                 </label>
-                <label htmlFor="paymentMethod">
-                  Elo
+                <label htmlFor="elo">
                   <input
                     type="radio"
-                    id="paymentMethod"
+                    id="elo"
                     value="elo"
                     name="pay"
-                    onChange={ this.handleChange }
+                    onChange={ this.handleChangeInput }
                   />
+                  Elo
                 </label>
               </div>
-              <button type="button" onClick={ this.validateInfos }>Comprar</button>
+              <button
+                type="button"
+                className="btn btn-warning"
+                onClick={ this.validateInfos }
+              >
+                Comprar
+
+              </button>
             </div>
           </div>
         );

@@ -33,7 +33,7 @@ class CardDetails extends React.Component {
 
   cartDetails = () => {
     const results = JSON.parse(localStorage.getItem('items'));
-    if (results) {
+    if (results.length !== 0) {
       const quantity = results.map((acc) => acc.quantity);
       const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
       this.setState({ quantidade: quantityTotal });
@@ -77,7 +77,6 @@ class CardDetails extends React.Component {
         id: product.id };
       if (localStorage.getItem('comments') !== null) {
         const addProductSelected = JSON.parse(localStorage.getItem('comments'));
-        console.log(addProductSelected);
         addProductSelected.push(coment);
         localStorage.setItem('comments', JSON.stringify(addProductSelected));
       } else {
@@ -98,17 +97,13 @@ class CardDetails extends React.Component {
       const { product, email, radio, textarea, comments, quantidade } = this.state;
       const { price } = product;
       const { pictures, attributes } = product;
-      console.log(attributes);
 
       return (
         <div className="CardDetail-container">
           <div>
             <Link data-testid="shopping-cart-button" to="/shopcart">
-              {/* <img src="https://w7.pngwing.com/pngs/304/721/png-transparent-graphy-shopping-cart-computer-icons-web-button-thumbnail.png" alt="carrinho" /> */}
               <p data-testid="shopping-cart-size">
-                <i className="bi bi-cart">
-                  {quantidade}
-                </i>
+                <i className="bi bi-cart">{quantidade}</i>
               </p>
             </Link>
           </div>

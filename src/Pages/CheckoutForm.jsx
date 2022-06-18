@@ -5,7 +5,7 @@ class CheckoutForm extends React.Component {
   render() {
     const { testId, placeholder, id, onChange } = this.props;
     return (
-      <label htmlFor={ id }>
+      <label htmlFor={ id } className="form-label">
         { placeholder }
         <input
           data-testid={ testId }
@@ -13,6 +13,7 @@ class CheckoutForm extends React.Component {
           id={ id }
           placeholder={ placeholder }
           onChange={ onChange }
+          className="form-control"
         />
       </label>
     );

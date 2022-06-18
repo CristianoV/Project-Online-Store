@@ -3,4 +3,19 @@
   flex-direction: column;
   justify-content: center;
   margin-left: 8px;
+  margin-top: 8px;
+}
+
+.container input {
+  display: none;
+}
+
+.container label {
+  cursor: pointer;
+  display: block;
+  margin-bottom: 8px;
+}
+
+.container label:hover {
+  color: #0070f3;
 }

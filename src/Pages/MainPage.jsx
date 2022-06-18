@@ -41,7 +41,7 @@ class MainPage extends React.Component {
 
   cartDetails = () => {
     const results = JSON.parse(localStorage.getItem('items'));
-    if (results) {
+    if (results.length !== 0) {
       const quantity = results.map((acc) => acc.quantity);
       const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
       this.setState({ quantidade: quantityTotal });
@@ -68,10 +68,8 @@ class MainPage extends React.Component {
 
   render() {
     const { productSearch, productsList, quantidade } = this.state;
-    // const { children } = this.props;
     return (
       <div className={ style.container }>
-        {/* <div>{ children }</div> */}
         <header>
           <input
             data-testid="query-input"
@@ -117,7 +115,6 @@ class MainPage extends React.Component {
                 price={ product.price }
                 id={ product.id }
                 frete={ product.shipping.free_shipping }
-                /* putElementCart={ this.handleClickToCart } */
                 putElementCart={ () => this.handleClickToCart(product) }
               />
             ))}
