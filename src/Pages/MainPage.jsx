@@ -41,10 +41,12 @@ class MainPage extends React.Component {
 
   cartDetails = () => {
     const results = JSON.parse(localStorage.getItem('items'));
-    if (results.length !== 0) {
+    if (results && results.length > 0) {
       const quantity = results.map((acc) => acc.quantity);
       const quantityTotal = quantity.reduce((acc, elemento) => acc + elemento);
       this.setState({ quantidade: quantityTotal });
+    } else {
+      this.setState({ quantidade: 0 });
     }
   }
 
@@ -79,6 +81,11 @@ class MainPage extends React.Component {
             className="form-control"
             value={ productSearch }
             onChange={ this.handleChange }
+            onKeyDown={ (e) => {
+              if (e.key === 'Enter') {
+                this.handleClick(productSearch);
+              }
+            } }
           />
           <input
             type="button"
