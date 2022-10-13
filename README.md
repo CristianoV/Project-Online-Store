@@ -14,7 +14,7 @@ Este projeto simula uma loja virtual, aonde é possivel percorrer entre os produ
 # Instruções da aplicação
 ### Instalar dependências
 ```
-cd Project-CRUD-TrybeWallet
+cd Project-Online-Store
 npm install
 ```
 
